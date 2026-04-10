@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maiden Moss</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --moss:       #4a5c3f;
+      --sage:       #8a9e7a;
+      --cream:      #f5f0e8;
+      --parchment:  #ede6d6;
+      --bark:       #6b5744;
+      --mist:       #d4cfc6;
+      --ink:        #2a2820;
+      --gold:       #b8955a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.5;
+    }
+
+    /* ── HEADER ── */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 110%, rgba(74,92,63,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 20%, rgba(138,158,122,0.12) 0%, transparent 60%),
+        var(--cream);
+    }
+
+    .header-ornament {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      color: var(--sage);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.2s;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--moss);
+      opacity: 0;
+      animation: fadeUp 1.1s ease forwards 0.4s;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--bark);
+    }
+
+    .header-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-top: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 1.1s ease forwards 0.7s;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.2s;
+    }
+
+    .scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--sage), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--mist);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--moss);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--moss); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--moss);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--bark);
+    }
+
+    .section-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: #5a5650;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── IMAGE GRID ── */
+    .grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-asymm {
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .grid-asymm .span-col {
+      grid-row: span 2;
+    }
+
+    .img-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--parchment);
+      aspect-ratio: 1 / 1;
+    }
+
+    .img-card.tall { aspect-ratio: 3 / 4; }
+    .img-card.wide { aspect-ratio: 4 / 3; }
+
+    .img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .img-card:hover img { transform: scale(1.04); }
+
+    /* Placeholder for empty slots */
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--mist);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .img-placeholder svg {
+      opacity: 0.3;
+      width: 32px;
+      height: 32px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--mist), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ── */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: #5a5650;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-img {
+      aspect-ratio: 3/4;
+      background: var(--parchment);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(138,158,122,0.3);
+      pointer-events: none;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,92,63,0.1) 0%, transparent 70%),
+        var(--parchment);
+      border-top: 1px solid var(--mist);
+      border-bottom: 1px solid var(--mist);
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    .contact-section .section-label { justify-content: center; }
+    .contact-section .section-label::after { display: none; }
+    .contact-section .section-title { text-align: center; }
+    .contact-section .section-desc {
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    .contact-email {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid var(--sage);
+      padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .contact-email:hover {
+      color: var(--bark);
+      border-color: var(--bark);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.2); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .grid-asymm { grid-template-columns: 1fr 1fr; }
+      .grid-asymm .span-col { grid-row: span 1; }
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img { display: none; }
+      .nav-links { gap: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-asymm { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header id="top">
+    <p class="header-ornament">Handmade with care · Georgetown, Texas</p>
+    <h1>Maiden Moss</h1>
+    <p class="header-sub">Fairy Gardens &nbsp;·&nbsp; Fine Art &nbsp;·&nbsp; Botanical Keepsakes</p>
+    <div class="scroll-hint">
+      <span>Explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#top" class="nav-logo">Maiden Moss</a>
+    <ul class="nav-links">
+      <li><a href="#fairy-gardens">Fairy Gardens</a></li>
+      <li><a href="#fine-art">Fine Art</a></li>
+      <li><a href="#leather">Botanical Keepsakes</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- FAIRY GARDENS -->
+  <section id="fairy-gardens">
+    <div class="reveal">
+      <p class="section-label">01 &nbsp; Collection</p>
+      <h2 class="section-title">Fairy <em>Gardens</em></h2>
+      <p class="section-desc">
+        Miniature worlds built by hand — each one a small ecosystem of moss, stone, found objects, and quiet magic. 
+        No two are alike.
+      </p>
+    </div>
+
+    <!-- Featured image -->
+    <div class="img-card tall reveal" style="max-width:600px; margin-bottom:1rem;">
+      <img src="images/PXL_20250205_220819141 (1).jpg" alt="Fairy garden featured">
+    </div>
+
+    <!-- Grid of remaining 7 -->
+    <div class="grid grid-3 reveal">
+      <div class="img-card">
+        <img src="images/1-3-25 star flower bottle 2.jpg" alt="Fairy garden">
+      </div>
+      <div class="img-card">
+        <img src="images/PXL_20231115_231723247 (1).jpg" alt="Fairy garden">
+      </div>
+      <div class="img-card">
+        <img src="images/PXL_20240903_215446783.jpg" alt="Fairy garden">
+      </div>
+      <div class="img-card">
+        <img src="images/PXL_20250115_223706507.PORTRAIT.jpg" alt="Fairy garden">
+      </div>
+      <div class="img-card">
+        <img src="images/PXL_20250130_224147370.PORTRAIT.jpg" alt="Fairy garden">
+      </div>
+      <div class="img-card">
+        <img src="images/PXL_20250403_202247233.PORTRAIT.jpg" alt="Fairy garden">
+      </div>
+      <div class="img-card">
+        <img src="images/PXL_20250403_202418058.jpg" alt="Fairy garden">
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FINE ART -->
+  <section id="fine-art">
+    <div class="reveal">
+      <p class="section-label">02 &nbsp; Collection</p>
+      <h2 class="section-title">Fine <em>Art</em></h2>
+      <p class="section-desc">
+        Original works exploring texture, color, and the natural world. 
+        Available for display, sale, or commission.
+      </p>
+    </div>
+
+    <div class="grid grid-3 reveal">
+      <div class="img-card wide">
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/art-1.jpg" alt="Fine art piece"> -->
+      </div>
+      <div class="img-card wide">
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/art-2.jpg" alt="Fine art piece"> -->
+      </div>
+      <div class="img-card wide">
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/art-3.jpg" alt="Fine art piece"> -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LEATHER GOODS -->
+  <section id="leather">
+    <div class="reveal">
+      <p class="section-label">03 &nbsp; Collection</p>
+      <h2 class="section-title">Botanical <em>Keepsakes</em></h2>
+      <p class="section-desc">
+        Small handmade pieces rooted in the natural world —
+        each one a little thing made to be kept.
+      </p>
+    </div>
+
+    <div class="grid grid-3 reveal">
+      <div class="img-card">
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/botanical-1.jpg" alt="Botanical keepsake"> -->
+      </div>
+      <div class="img-card">
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/botanical-2.jpg" alt="Botanical keepsake"> -->
+      </div>
+      <div class="img-card">
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/botanical-3.jpg" alt="Botanical keepsake"> -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-text reveal">
+        <p class="section-label">About</p>
+        <h2 class="section-title" style="margin-bottom:1.5rem;">The <em>maker</em></h2>
+
+        <!-- Replace this text with your own words -->
+        <p>
+          Maiden Moss is a one-person studio based in Georgetown, Texas. Everything here is made by hand — from the moss and stone of a miniature garden to the stitching on a leather piece to the brushstroke on a canvas.
+        </p>
+        <p>
+          I'm drawn to work that feels rooted: in natural materials, in slow processes, in the kind of detail that rewards a second look. If something I make finds its way into a space where people linger, that feels right.
+        </p>
+        <p>
+          I'm open to consignment and display arrangements with shops, restaurants, and galleries. Feel free to reach out.
+        </p>
+      </div>
+
+      <div class="about-img reveal">
+        <div class="img-placeholder" style="height:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width:40px;height:40px;"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span>Your photo here</span>
+        </div>
+        <!-- <img src="images/maker.jpg" alt="Maiden Moss maker"> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-section" id="contact">
+    <p class="section-label reveal">Get in touch</p>
+    <h2 class="section-title reveal">Let's <em>connect</em></h2>
+    <p class="section-desc reveal">
+      Interested in displaying Maiden Moss work in your space? 
+      Commission inquiries, consignment, and general questions are all welcome.
+    </p>
+    <a href="/cdn-cgi/l/email-protection#2053484f504d414944454e4d4f535360474d41494c0e434f4d" class="contact-email reveal"><span class="__cf_email__" data-cfemail="e192898e918c808885848f8c8e9292a1868c80888dcf828e8c">[email&#160;protected]</span></a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Maiden Moss &nbsp;·&nbsp; Georgetown, Texas &nbsp;·&nbsp; All work handmade</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><scr
