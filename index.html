@@ -575,6 +575,13 @@
     <a href="mailto:shopmaidenmoss@gmail.com" class="contact-email reveal">shopmaidenmoss@gmail.com</a>
   </div>
 
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
   <!-- FOOTER -->
   <footer>
     <p>© 2025 Maiden Moss &nbsp;·&nbsp; Georgetown, Texas &nbsp;·&nbsp; All work handmade</p>
