@@ -321,6 +321,22 @@
     .contact-section .section-label { justify-content: center; }
     .contact-section .section-label::after { display: none; }
     .contact-section .section-title { text-align: center; }
+
+    .contact-logo {
+      display: block;
+      width: 180px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      background-color: var(--gold);
+      -webkit-mask-image: url('images/logo-black.png');
+      mask-image: url('images/logo-black.png');
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
     .contact-section .section-desc {
       margin: 0 auto 2.5rem;
       text-align: center;
@@ -643,7 +659,7 @@
 
   <!-- CONTACT -->
   <div class="contact-section" id="contact">
-    <p class="section-label reveal">Get in touch</p>
+    <div class="contact-logo reveal"></div>
     <h2 class="section-title reveal">Let's <em>connect</em></h2>
     <p class="section-desc reveal">
       Interested in displaying Maiden Moss work in your space? 
