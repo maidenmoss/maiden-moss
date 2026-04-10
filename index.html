@@ -433,7 +433,28 @@
       .grid-asymm { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .menu-toggle { display: block; }
-      nav { position: relative; }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
+      }
+      nav.scrolled {
+        background: rgba(245, 240, 232, 0.95);
+        border-bottom: 1px solid var(--mist);
+        backdrop-filter: blur(8px);
+      }
+      .nav-logo { color: rgba(255,255,255,0.9); }
+      nav.scrolled .nav-logo { color: var(--moss); }
+      .menu-toggle { color: rgba(255,255,255,0.9); }
+      nav.scrolled .menu-toggle { color: var(--ink); }
+      .nav-dropdown {
+        background: rgba(245, 240, 232, 0.97);
+        border-top: 1px solid var(--mist);
+      }
     }
   </style>
 </head>
@@ -640,6 +661,7 @@
     // Mobile menu toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navDropdown = document.getElementById('nav-dropdown');
+    const nav = document.querySelector('nav');
     menuToggle.addEventListener('click', () => {
       navDropdown.classList.toggle('open');
       menuToggle.textContent = navDropdown.classList.contains('open') ? 'Close' : 'Menu';
@@ -649,6 +671,14 @@
         navDropdown.classList.remove('open');
         menuToggle.textContent = 'Menu';
       });
+    });
+
+    // Mobile nav: swap to solid background after scrolling past hero
+    const heroHeight = document.querySelector('header').offsetHeight;
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 480) {
+        nav.classList.toggle('scrolled', window.scrollY > heroHeight - 80);
+      }
     });
   </script>
 
