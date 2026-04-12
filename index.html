@@ -373,6 +373,48 @@
       border-color: var(--bark);
     }
 
+    /* ── SHOW MORE ── */
+    .show-more-btn { display: none; }
+
+    @media (max-width: 480px) {
+      .collection-expandable {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+      }
+      .collection-expandable.expanded {
+        max-height: 2400px;
+      }
+      .show-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 0.75rem;
+        padding: 0.9rem 0;
+        background: none;
+        border: none;
+        border-top: 1px solid var(--mist);
+        cursor: pointer;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--bark);
+        transition: color 0.2s;
+      }
+      .show-more-btn:hover { color: var(--moss); }
+      .show-more-btn .chevron {
+        width: 14px;
+        height: 14px;
+        transition: transform 0.35s ease;
+      }
+      .show-more-btn.expanded .chevron {
+        transform: rotate(180deg);
+      }
+    }
+
     /* ── LIGHTBOX ── */
     .lightbox {
       display: flex;
@@ -601,32 +643,38 @@
     </div>
 
     <!-- Grid of remaining 8 -->
-    <div class="grid grid-3 reveal">
-      <div class="img-card">
-        <img src="images/fairy-1.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-2.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-3.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-4.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-5.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-6.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-7.jpg" alt="Fairy garden">
-      </div>
-      <div class="img-card">
-        <img src="images/fairy-11.jpg" alt="Fairy garden">
+    <div class="collection-expandable">
+      <div class="grid grid-3 reveal">
+        <div class="img-card">
+          <img src="images/fairy-1.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-2.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-3.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-4.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-5.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-6.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-7.jpg" alt="Fairy garden">
+        </div>
+        <div class="img-card">
+          <img src="images/fairy-11.jpg" alt="Fairy garden">
+        </div>
       </div>
     </div>
+    <button class="show-more-btn" aria-expanded="false">
+      <span class="show-more-label">Show more</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
   </section>
 
   <div class="divider"></div>
@@ -648,23 +696,29 @@
     </div>
 
     <!-- Grid of remaining 5 -->
-    <div class="grid grid-3 reveal">
-      <div class="img-card wide">
-        <img src="images/art-1.jpg" alt="Fine art piece">
-      </div>
-      <div class="img-card wide">
-        <img src="images/art-2.jpg" alt="Fine art piece">
-      </div>
-      <div class="img-card wide">
-        <img src="images/art-3.jpg" alt="Fine art piece">
-      </div>
-      <div class="img-card wide">
-        <img src="images/art-5.jpg" alt="Fine art piece">
-      </div>
-      <div class="img-card wide">
-        <img src="images/art-6.jpg" alt="Fine art piece">
+    <div class="collection-expandable">
+      <div class="grid grid-3 reveal">
+        <div class="img-card wide">
+          <img src="images/art-1.jpg" alt="Fine art piece">
+        </div>
+        <div class="img-card wide">
+          <img src="images/art-2.jpg" alt="Fine art piece">
+        </div>
+        <div class="img-card wide">
+          <img src="images/art-3.jpg" alt="Fine art piece">
+        </div>
+        <div class="img-card wide">
+          <img src="images/art-5.jpg" alt="Fine art piece">
+        </div>
+        <div class="img-card wide">
+          <img src="images/art-6.jpg" alt="Fine art piece">
+        </div>
       </div>
     </div>
+    <button class="show-more-btn" aria-expanded="false">
+      <span class="show-more-label">Show more</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
   </section>
 
   <div class="divider"></div>
@@ -680,29 +734,32 @@
       </p>
     </div>
 
-    <div class="grid grid-3 reveal">
-      <div class="img-card">
-        <div class="img-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <span>Your photo here</span>
+    <div class="collection-expandable">
+      <div class="grid grid-3 reveal">
+        <div class="img-card">
+          <div class="img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Your photo here</span>
+          </div>
         </div>
-        <!-- <img src="images/botanical-1.jpg" alt="Botanical keepsake"> -->
-      </div>
-      <div class="img-card">
-        <div class="img-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <span>Your photo here</span>
+        <div class="img-card">
+          <div class="img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Your photo here</span>
+          </div>
         </div>
-        <!-- <img src="images/botanical-2.jpg" alt="Botanical keepsake"> -->
-      </div>
-      <div class="img-card">
-        <div class="img-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <span>Your photo here</span>
+        <div class="img-card">
+          <div class="img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Your photo here</span>
+          </div>
         </div>
-        <!-- <img src="images/botanical-3.jpg" alt="Botanical keepsake"> -->
       </div>
     </div>
+    <button class="show-more-btn" aria-expanded="false">
+      <span class="show-more-label">Show more</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
   </section>
 
   <div class="divider"></div>
@@ -814,6 +871,22 @@
       closeLightbox();
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // Show more / collapse for collections (mobile only)
+    document.querySelectorAll('.show-more-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expandable = btn.previousElementSibling;
+        const isExpanded = expandable.classList.contains('expanded');
+        expandable.classList.toggle('expanded');
+        btn.classList.toggle('expanded');
+        btn.setAttribute('aria-expanded', !isExpanded);
+        btn.querySelector('.show-more-label').textContent = isExpanded ? 'Show more' : 'Show less';
+        // Make sure reveal animations fire for newly visible items
+        if (!isExpanded) {
+          expandable.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+      });
+    });
   </script>
 
   <!-- FOOTER -->
