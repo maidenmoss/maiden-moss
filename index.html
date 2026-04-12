@@ -373,29 +373,35 @@
 
     /* ── LIGHTBOX ── */
     .lightbox {
-      display: none;
+      display: flex;
       position: fixed;
       inset: 0;
-      z-index: 500;
-      background: rgba(26, 22, 18, 0.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      z-index: 1100;
+      background: rgba(245, 240, 232, 0.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       align-items: center;
       justify-content: center;
       padding: 2rem;
       cursor: zoom-out;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
 
-    .lightbox.open { display: flex; }
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .lightbox img {
-      max-width: 90vw;
-      max-height: 88vh;
+      max-width: 88vw;
+      max-height: 85vh;
       object-fit: contain;
       border-radius: 2px;
-      box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
       cursor: default;
-      animation: lbFadeIn 0.25s ease;
+      animation: lbFadeIn 0.3s ease;
     }
 
     .lightbox-close {
@@ -404,7 +410,7 @@
       right: 1.75rem;
       background: none;
       border: none;
-      color: rgba(255,255,255,0.7);
+      color: var(--bark);
       font-family: 'Jost', sans-serif;
       font-size: 0.65rem;
       letter-spacing: 0.3em;
@@ -413,12 +419,12 @@
       transition: color 0.2s;
     }
 
-    .lightbox-close:hover { color: rgba(255,255,255,1); }
+    .lightbox-close:hover { color: var(--moss); }
 
     .img-card { cursor: zoom-in; }
 
     @keyframes lbFadeIn {
-      from { opacity: 0; transform: scale(0.96); }
+      from { opacity: 0; transform: scale(0.97); }
       to   { opacity: 1; transform: scale(1); }
     }
 
@@ -733,6 +739,12 @@
     <a href="mailto:shopmaidenmoss@gmail.com" class="contact-email reveal">shopmaidenmoss@gmail.com</a>
   </div>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">Close</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <script>
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
@@ -766,32 +778,37 @@
     // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
 
-    document.querySelectorAll('.img-card img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
 
     function closeLightbox() {
       lightbox.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    lightbox.addEventListener('click', closeLightbox);
-    lightboxImg.addEventListener('click', e => e.stopPropagation());
-    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('click', e => {
+      const card = e.target.closest('.img-card');
+      if (card) {
+        const img = card.querySelector('img');
+        if (img) openLightbox(img.src, img.alt);
+      }
+    });
+
+    lightbox.addEventListener('click', e => {
+      if (e.target !== lightboxImg && e.target !== lightboxClose) closeLightbox();
+    });
+    lightboxClose.addEventListener('click', e => {
+      e.stopPropagation();
+      closeLightbox();
+    });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   </script>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightbox-close">Close</button>
-    <img id="lightbox-img" src="" alt="">
-  </div>
 
   <!-- FOOTER -->
   <footer>
