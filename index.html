@@ -396,10 +396,25 @@
         border-top: 1px solid var(--mist);
       }
 
-      /* Shared button styles */
-      .show-more-btn,
-      .show-less-btn {
+      /* Button styles */
+      .show-more-btn {
         display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.9rem 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--bark);
+        transition: color 0.2s;
+      }
+      .show-less-btn {
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
