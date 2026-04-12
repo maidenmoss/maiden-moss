@@ -373,29 +373,32 @@
       border-color: var(--bark);
     }
 
-    /* ── SHOW MORE ── */
-    .show-more-btn  { display: none; }
-    .show-more-divider { display: none; }
-
-    /* Seamless gap between preview and expandable grids on all sizes */
-    .collection-expandable .grid { margin-top: 1rem; }
+    /* ── SHOW MORE / LESS ── */
+    .show-more-wrapper { display: none; }
+    .show-less-btn     { display: none; }
 
     @media (max-width: 480px) {
-      section { padding-top: 3.5rem; }
+      section { padding-top: 2rem; }
 
-      .collection-expandable {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease;
-      }
-      .collection-expandable.expanded {
-        max-height: 2400px;
-      }
-      .show-more-divider {
-        display: block;
+      /* Hide extra photos until expanded */
+      .collection-more { display: none; }
+
+      /* Show-more wrapper visible by default on mobile */
+      .show-more-wrapper { display: block; margin-top: 0.75rem; }
+      .show-more-divider { display: block; }
+
+      /* When expanded: reveal hidden photos, hide show-more, show show-less */
+      .collection-grid.expanded .collection-more { display: block; }
+      .collection-grid.expanded ~ .show-more-wrapper { display: none; }
+      .collection-grid.expanded ~ .show-less-btn {
+        display: flex;
         margin-top: 0.75rem;
+        border-top: 1px solid var(--mist);
       }
-      .show-more-btn {
+
+      /* Shared button styles */
+      .show-more-btn,
+      .show-less-btn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -412,15 +415,10 @@
         color: var(--bark);
         transition: color 0.2s;
       }
-      .show-more-btn:hover { color: var(--moss); }
-      .show-more-btn .chevron {
-        width: 14px;
-        height: 14px;
-        transition: transform 0.35s ease;
-      }
-      .show-more-btn.expanded .chevron {
-        transform: rotate(180deg);
-      }
+      .show-more-btn:hover,
+      .show-less-btn:hover { color: var(--moss); }
+      .show-more-btn .chevron,
+      .show-less-btn .chevron { width: 14px; height: 14px; }
     }
 
     /* ── LIGHTBOX ── */
@@ -645,34 +643,34 @@
       </p>
     </div>
 
-    <!-- Featured image -->
+    <!-- Featured image (counts as photo 1) -->
     <div class="img-card tall reveal" style="max-width:600px; margin-bottom:1rem;">
       <img src="images/fairy-featured.jpg" alt="Fairy garden featured">
     </div>
 
-    <!-- Preview: first 3 always visible -->
-    <div class="grid grid-3 reveal">
+    <!-- Single unified grid: first 2 always visible (= 3 total with featured), rest hidden on mobile -->
+    <div class="collection-grid grid grid-3 reveal">
       <div class="img-card"><img src="images/fairy-1.jpg" alt="Fairy garden"></div>
       <div class="img-card"><img src="images/fairy-2.jpg" alt="Fairy garden"></div>
-      <div class="img-card"><img src="images/fairy-3.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more"><img src="images/fairy-3.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more"><img src="images/fairy-4.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more"><img src="images/fairy-5.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more"><img src="images/fairy-6.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more"><img src="images/fairy-7.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more"><img src="images/fairy-11.jpg" alt="Fairy garden"></div>
     </div>
 
-    <div class="divider show-more-divider"></div>
-    <button class="show-more-btn" aria-expanded="false">
-      <span class="show-more-label">Show more</span>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <div class="show-more-wrapper">
+      <div class="divider show-more-divider"></div>
+      <button class="show-more-btn">
+        <span>Show more</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+    <button class="show-less-btn">
+      <span>Show less</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
-
-    <!-- Remaining photos, hidden on mobile until expanded -->
-    <div class="collection-expandable">
-      <div class="grid grid-3">
-        <div class="img-card"><img src="images/fairy-4.jpg" alt="Fairy garden"></div>
-        <div class="img-card"><img src="images/fairy-5.jpg" alt="Fairy garden"></div>
-        <div class="img-card"><img src="images/fairy-6.jpg" alt="Fairy garden"></div>
-        <div class="img-card"><img src="images/fairy-7.jpg" alt="Fairy garden"></div>
-        <div class="img-card"><img src="images/fairy-11.jpg" alt="Fairy garden"></div>
-      </div>
-    </div>
   </section>
 
   <!-- FINE ART -->
@@ -686,31 +684,31 @@
       </p>
     </div>
 
-    <!-- Featured image -->
+    <!-- Featured image (counts as photo 1) -->
     <div class="img-card tall reveal" style="max-width:600px; margin-bottom:1rem;">
       <img src="images/art-4.jpg" alt="Fine art featured" style="object-fit:contain;">
     </div>
 
-    <!-- Preview: first 3 always visible -->
-    <div class="grid grid-3 reveal">
+    <!-- Single unified grid: first 2 always visible (= 3 total with featured), rest hidden on mobile -->
+    <div class="collection-grid grid grid-3 reveal">
       <div class="img-card wide"><img src="images/art-1.jpg" alt="Fine art piece"></div>
       <div class="img-card wide"><img src="images/art-2.jpg" alt="Fine art piece"></div>
-      <div class="img-card wide"><img src="images/art-3.jpg" alt="Fine art piece"></div>
+      <div class="img-card wide collection-more"><img src="images/art-3.jpg" alt="Fine art piece"></div>
+      <div class="img-card wide collection-more"><img src="images/art-5.jpg" alt="Fine art piece"></div>
+      <div class="img-card wide collection-more"><img src="images/art-6.jpg" alt="Fine art piece"></div>
     </div>
 
-    <div class="divider show-more-divider"></div>
-    <button class="show-more-btn" aria-expanded="false">
-      <span class="show-more-label">Show more</span>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <div class="show-more-wrapper">
+      <div class="divider show-more-divider"></div>
+      <button class="show-more-btn">
+        <span>Show more</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+    <button class="show-less-btn">
+      <span>Show less</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
-
-    <!-- Remaining photos, hidden on mobile until expanded -->
-    <div class="collection-expandable">
-      <div class="grid grid-3">
-        <div class="img-card wide"><img src="images/art-5.jpg" alt="Fine art piece"></div>
-        <div class="img-card wide"><img src="images/art-6.jpg" alt="Fine art piece"></div>
-      </div>
-    </div>
   </section>
 
   <!-- LEATHER GOODS -->
@@ -854,19 +852,15 @@
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    // Show more / collapse for collections (mobile only)
+    // Show more / less for collections (mobile only)
     document.querySelectorAll('.show-more-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const expandable = btn.nextElementSibling;
-        const isExpanded = expandable.classList.contains('expanded');
-        expandable.classList.toggle('expanded');
-        btn.classList.toggle('expanded');
-        btn.setAttribute('aria-expanded', !isExpanded);
-        btn.querySelector('.show-more-label').textContent = isExpanded ? 'Show more' : 'Show less';
-        // Ensure newly revealed items animate in
-        if (!isExpanded) {
-          expandable.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-        }
+        btn.closest('section').querySelector('.collection-grid').classList.add('expanded');
+      });
+    });
+    document.querySelectorAll('.show-less-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('section').querySelector('.collection-grid').classList.remove('expanded');
       });
     });
   </script>
