@@ -387,6 +387,18 @@
       border-color: var(--bark);
     }
 
+    /* ── SUB-COLLECTION LABEL ── */
+    .sub-label {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--bark);
+      margin-bottom: 0.75rem;
+      margin-top: 2.5rem;
+    }
+    .sub-collection:first-of-type .sub-label { margin-top: 0; }
+
     /* ── SHOW MORE / LESS ── */
     .show-more-wrapper { display: none; }
     .show-less-btn     { display: none; }
@@ -712,31 +724,57 @@
       </p>
     </div>
 
-    <!-- Featured image (counts as photo 1) -->
-    <div class="img-card tall reveal" style="max-width:600px; margin-bottom:1rem;">
-      <img src="images/art-4.jpg" alt="Fine art featured" style="object-fit:contain;">
-    </div>
-
-    <!-- Single unified grid: first 2 always visible (= 3 total with featured), rest hidden on mobile -->
-    <div class="collection-grid grid grid-3 reveal">
-      <div class="img-card wide"><img src="images/art-1.jpg" alt="Fine art piece"></div>
-      <div class="img-card wide"><img src="images/art-2.jpg" alt="Fine art piece"></div>
-      <div class="img-card wide collection-more"><img src="images/art-3.jpg" alt="Fine art piece"></div>
-      <div class="img-card wide collection-more"><img src="images/art-5.jpg" alt="Fine art piece"></div>
-      <div class="img-card wide collection-more"><img src="images/art-6.jpg" alt="Fine art piece"></div>
-    </div>
-
-    <div class="show-more-wrapper">
-      <div class="divider show-more-divider"></div>
-      <button class="show-more-btn">
-        <span>Show more</span>
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <!-- Traditional -->
+    <div class="sub-collection">
+      <p class="sub-label reveal">Traditional</p>
+      <div class="collection-grid grid grid-3 reveal">
+        <div class="img-card wide"><img src="images/art-1.jpg" alt="Fine art piece"></div>
+        <div class="img-card wide"><img src="images/art-2.jpg" alt="Fine art piece"></div>
+        <div class="img-card wide"><img src="images/art-3.jpg" alt="Fine art piece"></div>
+        <div class="img-card wide collection-more">
+          <div class="img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Your photo here</span>
+          </div>
+        </div>
+      </div>
+      <div class="show-more-wrapper">
+        <button class="show-more-btn">
+          <span>Show more</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+      <button class="show-less-btn">
+        <span>Show less</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
     </div>
-    <button class="show-less-btn">
-      <span>Show less</span>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
+
+    <!-- 3D Art -->
+    <div class="sub-collection">
+      <p class="sub-label reveal">3D Art</p>
+      <div class="collection-grid grid grid-3 reveal">
+        <div class="img-card wide"><img src="images/art-4.jpg" alt="3D art piece"></div>
+        <div class="img-card wide"><img src="images/art-5.jpg" alt="3D art piece"></div>
+        <div class="img-card wide"><img src="images/art-6.jpg" alt="3D art piece"></div>
+        <div class="img-card wide collection-more">
+          <div class="img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>Your photo here</span>
+          </div>
+        </div>
+      </div>
+      <div class="show-more-wrapper">
+        <button class="show-more-btn">
+          <span>Show more</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+      <button class="show-less-btn">
+        <span>Show less</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
   </section>
 
   <!-- LEATHER GOODS -->
@@ -884,12 +922,14 @@
     // Show more / less for collections (mobile only)
     document.querySelectorAll('.show-more-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        btn.closest('section').querySelector('.collection-grid').classList.add('expanded');
+        const scope = btn.closest('.sub-collection') || btn.closest('section');
+        scope.querySelector('.collection-grid').classList.add('expanded');
       });
     });
     document.querySelectorAll('.show-less-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        btn.closest('section').querySelector('.collection-grid').classList.remove('expanded');
+        const scope = btn.closest('.sub-collection') || btn.closest('section');
+        scope.querySelector('.collection-grid').classList.remove('expanded');
       });
     });
   </script>
