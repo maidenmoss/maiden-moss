@@ -174,6 +174,34 @@
 
     .nav-links a:hover { color: var(--moss); }
 
+    /* ── NAV SUBDROPDOWN ── */
+    .nav-has-dropdown { position: relative; }
+
+    .nav-subdropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      left: 50%;
+      transform: translateX(-50%);
+      list-style: none;
+      background: rgba(245, 240, 232, 0.97);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--mist);
+      padding: 0.5rem 0;
+      min-width: 130px;
+      z-index: 200;
+    }
+
+    .nav-subdropdown li a {
+      display: block;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      white-space: nowrap;
+    }
+
+    .nav-has-dropdown:hover .nav-subdropdown { display: block; }
+
     /* ── SECTIONS ── */
     section {
       padding: 6rem 2rem;
@@ -657,7 +685,13 @@
     <a href="#top" class="nav-logo">Maiden Moss</a>
     <ul class="nav-links">
       <li><a href="#fairy-gardens">Fairy Gardens</a></li>
-      <li><a href="#fine-art">Fine Art</a></li>
+      <li class="nav-has-dropdown">
+        <a href="#fine-art">Fine Art</a>
+        <ul class="nav-subdropdown">
+          <li><a href="#fine-art-traditional">Traditional</a></li>
+          <li><a href="#fine-art-3d">3D Art</a></li>
+        </ul>
+      </li>
       <li><a href="#leather">Botanical Keepsakes</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -720,7 +754,7 @@
     </div>
 
     <!-- Traditional -->
-    <div class="sub-collection">
+    <div class="sub-collection" id="fine-art-traditional">
       <p class="sub-label reveal">Traditional</p>
       <div class="collection-grid grid grid-3 reveal">
         <div class="img-card"><img src="images/art-1.jpg" alt="Fine art piece"></div>
@@ -743,7 +777,7 @@
     </div>
 
     <!-- 3D Art -->
-    <div class="sub-collection">
+    <div class="sub-collection" id="fine-art-3d">
       <p class="sub-label reveal">3D Art</p>
       <div class="collection-grid grid grid-3 reveal">
         <div class="img-card"><img src="images/3d-3.jpg" alt="3D art piece"></div>
