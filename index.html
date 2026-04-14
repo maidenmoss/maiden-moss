@@ -433,62 +433,51 @@
     .show-more-wrapper { display: none; }
     .show-less-btn     { display: none; }
 
+    /* Shared button styles (applied when visible via media queries) */
+    .show-more-btn,
+    .show-less-btn {
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.9rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--bark);
+      transition: color 0.2s;
+    }
+    .show-more-btn:hover,
+    .show-less-btn:hover { color: var(--moss); }
+    .show-more-btn .chevron,
+    .show-less-btn .chevron { width: 14px; height: 14px; }
+
+    /* ── TABLET (481–768px): show 6 photos (3 rows × 2 cols) ── */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .collection-more-tablet { display: none; }
+      .show-more-wrapper { display: block; margin-top: 0.75rem; }
+      .show-more-btn { display: flex; }
+      .collection-grid.expanded .collection-more-tablet { display: block; }
+      .collection-grid.expanded ~ .show-more-wrapper { display: none; }
+      .collection-grid.expanded ~ .show-less-btn { display: flex; margin-top: 0.75rem; }
+    }
+
+    /* ── MOBILE (≤480px): show 3 photos ── */
     @media (max-width: 480px) {
       section { padding-top: 2rem; padding-bottom: 2rem; }
 
-      /* Hide extra photos until expanded */
       .collection-more { display: none; }
-
-      /* Show-more wrapper visible by default on mobile */
       .show-more-wrapper { display: block; margin-top: 0.75rem; }
       .show-more-divider { display: none; }
+      .show-more-btn { display: flex; }
 
-      /* When expanded: reveal hidden photos, hide show-more, show show-less */
       .collection-grid.expanded .collection-more { display: block; }
       .collection-grid.expanded ~ .show-more-wrapper { display: none; }
-      .collection-grid.expanded ~ .show-less-btn {
-        display: flex;
-        margin-top: 0.75rem;
-      }
-
-      /* Button styles */
-      .show-more-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 0.9rem 0;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.65rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: var(--bark);
-        transition: color 0.2s;
-      }
-      .show-less-btn {
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 0.9rem 0;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.65rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: var(--bark);
-        transition: color 0.2s;
-      }
-      .show-more-btn:hover,
-      .show-less-btn:hover { color: var(--moss); }
-      .show-more-btn .chevron,
-      .show-less-btn .chevron { width: 14px; height: 14px; }
+      .collection-grid.expanded ~ .show-less-btn { display: flex; margin-top: 0.75rem; }
     }
 
     /* ── LIGHTBOX ── */
@@ -726,9 +715,9 @@
       <div class="img-card collection-more"><img src="images/fairy-3.jpg" alt="Fairy garden"></div>
       <div class="img-card collection-more"><img src="images/fairy-4.jpg" alt="Fairy garden"></div>
       <div class="img-card collection-more"><img src="images/fairy-5.jpg" alt="Fairy garden"></div>
-      <div class="img-card collection-more"><img src="images/fairy-6.jpg" alt="Fairy garden"></div>
-      <div class="img-card collection-more"><img src="images/fairy-7.jpg" alt="Fairy garden"></div>
-      <div class="img-card collection-more"><img src="images/fairy-1.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more collection-more-tablet"><img src="images/fairy-6.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more collection-more-tablet"><img src="images/fairy-7.jpg" alt="Fairy garden"></div>
+      <div class="img-card collection-more collection-more-tablet"><img src="images/fairy-1.jpg" alt="Fairy garden"></div>
     </div>
 
     <div class="show-more-wrapper">
@@ -765,8 +754,8 @@
         <div class="img-card collection-more"><img src="images/art-7.jpg" alt="Fine art piece"></div>
         <div class="img-card collection-more"><img src="images/art-9.jpg" alt="Fine art piece"></div>
         <div class="img-card collection-more"><img src="images/art-5.jpg" alt="Fine art piece"></div>
-        <div class="img-card collection-more"><img src="images/art-6.jpg" alt="Fine art piece"></div>
-        <div class="img-card collection-more"><img src="images/art-10.jpg" alt="Fine art piece"></div>
+        <div class="img-card collection-more collection-more-tablet"><img src="images/art-6.jpg" alt="Fine art piece"></div>
+        <div class="img-card collection-more collection-more-tablet"><img src="images/art-10.jpg" alt="Fine art piece"></div>
       </div>
       <div class="show-more-wrapper">
         <button class="show-more-btn">
@@ -819,8 +808,8 @@
       <div class="img-card collection-more"><img src="images/bk-2.jpg" alt="Botanical keepsake"></div>
       <div class="img-card collection-more"><img src="images/bk-5.jpg" alt="Botanical keepsake"></div>
       <div class="img-card collection-more"><img src="images/bk-6.jpg" alt="Botanical keepsake"></div>
-      <div class="img-card collection-more"><img src="images/bk-7.jpg" alt="Botanical keepsake"></div>
-      <div class="img-card collection-more"><img src="images/bk-3.jpg" alt="Botanical keepsake"></div>
+      <div class="img-card collection-more collection-more-tablet"><img src="images/bk-7.jpg" alt="Botanical keepsake"></div>
+      <div class="img-card collection-more collection-more-tablet"><img src="images/bk-3.jpg" alt="Botanical keepsake"></div>
     </div>
     <div class="show-more-wrapper">
       <button class="show-more-btn">
