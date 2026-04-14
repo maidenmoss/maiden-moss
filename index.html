@@ -471,6 +471,7 @@
     @media (max-width: 480px) {
       section { padding-top: 2rem; padding-bottom: 2rem; }
 
+      .shop-locations { grid-template-columns: 1fr; }
       .collection-more { display: none; }
       .show-more-wrapper { display: block; margin-top: 0.75rem; }
       .show-more-divider { display: none; }
@@ -480,6 +481,99 @@
       .collection-grid.expanded ~ .show-more-wrapper { display: none; }
       .collection-grid.expanded ~ .show-less-btn { display: flex; margin-top: 0.75rem; }
     }
+
+    /* ── SHOP ── */
+    .shop-section {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,92,63,0.1) 0%, transparent 70%),
+        var(--parchment);
+      border-top: 1px solid var(--mist);
+      border-bottom: 1px solid var(--mist);
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+    }
+    .shop-section .section-title,
+    .shop-section .section-desc { text-align: center; }
+    .shop-section .section-desc { margin: 0 auto; }
+
+    .shop-locations {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 560px;
+      margin: 2rem auto;
+    }
+    .location-card {
+      border: 1px solid var(--mist);
+      padding: 1.75rem 1.5rem;
+      background: rgba(255,255,255,0.4);
+    }
+    .location-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--moss);
+      margin-bottom: 0.35rem;
+    }
+    .location-place {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bark);
+      margin-bottom: 1rem;
+    }
+    .location-link {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      text-decoration: none;
+      border-bottom: 1px solid var(--sage);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .location-link:hover { color: var(--moss); border-color: var(--moss); }
+
+    .shop-markets-note {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: #5a5650;
+      max-width: 480px;
+      margin: 0 auto 1rem;
+    }
+    .shop-markets-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .shop-markets-list li {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--moss);
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .social-link:hover { color: var(--moss); }
+    .social-link svg { width: 15px; height: 15px; }
 
     /* ── LIGHTBOX ── */
     .lightbox {
@@ -685,6 +779,7 @@
         </ul>
       </li>
       <li><a href="#leather">Botanical Keepsakes</a></li>
+      <li><a href="#shop">Shop</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -693,6 +788,7 @@
       <a href="#fairy-gardens">Fairy Gardens</a>
       <a href="#fine-art">Fine Art</a>
       <a href="#leather">Botanical Keepsakes</a>
+      <a href="#shop">Shop</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </div>
@@ -824,6 +920,42 @@
     </button>
   </section>
 
+  <!-- SHOP -->
+  <div class="shop-section" id="shop">
+    <h2 class="section-title reveal">Find <em>Maiden Moss</em></h2>
+    <p class="section-desc reveal">Available for viewing and purchase at the following locations.</p>
+
+    <div class="shop-locations reveal">
+      <div class="location-card">
+        <p class="location-name">The Book Burrow</p>
+        <p class="location-place">Pflugerville, TX</p>
+        <a href="https://www.thebookburrowbookstore.com/" class="location-link" target="_blank" rel="noopener">Visit website</a>
+      </div>
+      <div class="location-card">
+        <p class="location-name">Prima Dora</p>
+        <p class="location-place">Georgetown, TX</p>
+        <a href="https://primadoragt.com/" class="location-link" target="_blank" rel="noopener">Visit website</a>
+      </div>
+    </div>
+
+    <p class="shop-markets-note reveal">I participate in a rotating selection of local markets throughout the year. Reach out or follow along on social media to find out where I'll be next.</p>
+
+    <ul class="shop-markets-list reveal">
+      <li>Austin Witches Market</li>
+    </ul>
+
+    <div class="social-links reveal">
+      <a href="https://www.instagram.com/maiden_moss/" class="social-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@petalsinthedark" class="social-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg>
+        TikTok
+      </a>
+    </div>
+  </div>
+
   <!-- ABOUT -->
   <section id="about">
     <div class="about-inner">
@@ -861,6 +993,16 @@
       Commission inquiries, consignment, and general questions are all welcome.
     </p>
     <a href="mailto:shopmaidenmoss@gmail.com" class="contact-email reveal">shopmaidenmoss@gmail.com</a>
+    <div class="social-links reveal">
+      <a href="https://www.instagram.com/maiden_moss/" class="social-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@petalsinthedark" class="social-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg>
+        TikTok
+      </a>
+    </div>
   </div>
 
   <!-- LIGHTBOX -->
